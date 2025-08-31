@@ -1,6 +1,6 @@
 # dotfiles
 
-Youn can use it for whatever you want.
+You can use it for whatever you want.
 
 ## Preview
 
