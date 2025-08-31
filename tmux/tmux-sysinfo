@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+read mem cpu <<<"$(
+    /opt/homebrew/bin/tmux-mem-cpu-load \
+        --interval 1 --graph-lines 0 --averages-count 0
+)"
+
+used=${mem%%/*}         # avant le "/"
+total=${mem##*/}        # après le "/"
+total=${total//[!0-9]/} # supprime toutes les lettres (MB, GB, etc.)
+
+# éviter division par zéro
+if [ "$total" -gt 0 ]; then
+    mem_pct=$((100 * used / total))
+else
+    mem_pct=0
+fi
+
+printf " %s │  %d%%" "$cpu" "$mem_pct"
